@@ -1,58 +1,35 @@
 package config
 
 import (
-	"time"
+	"log"
 
 	"github.com/spf13/viper"
 )
 
-// Provider defines a set of read-only methods for accessing the application
-// configuration params as defined in one of the config files.
-type Provider interface {
-	ConfigFileUsed() string
-	Get(key string) interface{}
-	GetBool(key string) bool
-	GetDuration(key string) time.Duration
-	GetFloat64(key string) float64
-	GetInt(key string) int
-	GetInt64(key string) int64
-	GetSizeInBytes(key string) uint
-	GetString(key string) string
-	GetStringMap(key string) map[string]interface{}
-	GetStringMapString(key string) map[string]string
-	GetStringMapStringSlice(key string) map[string][]string
-	GetStringSlice(key string) []string
-	GetTime(key string) time.Time
-	InConfig(key string) bool
-	IsSet(key string) bool
+type Config struct {
+	DBHost     string
+	DBPort     string
+	DBUser     string
+	DBPassword string
+	DBName     string
 }
 
-var defaultConfig *viper.Viper
+func LoadConfig() Config {
+	// TODO: Change config based on environment
+	viper.SetConfigName("config")
+	viper.SetConfigType("yaml")
+	viper.AddConfigPath(".")
 
-// Config returns a default config providers
-func Config() Provider {
-	return defaultConfig
-}
+	err := viper.ReadInConfig()
+	if err != nil {
+		log.Fatalf("Error reading config file, %s", err)
+	}
 
-// LoadConfigProvider returns a configured viper instance
-func LoadConfigProvider(appName string) Provider {
-	return readViperConfig(appName)
-}
+	var config Config
+	err = viper.Unmarshal(&config)
+	if err != nil {
+		log.Fatalf("Unable to decode into struct, %v", err)
+	}
 
-func init() {
-	defaultConfig = readViperConfig("EVENT-BOOK-API")
-}
-
-func readViperConfig(appName string) *viper.Viper {
-	v := viper.New()
-	v.SetEnvPrefix(appName)
-	v.AutomaticEnv()
-
-	// global defaults
-	
-	v.SetDefault("json_logs", false)
-	v.SetDefault("loglevel", "debug")
-	
-
-	return v
+	return config
 }
