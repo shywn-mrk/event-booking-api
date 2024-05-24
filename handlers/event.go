@@ -49,10 +49,5 @@ func (h *EventHandler) List(ctx *gin.Context) {
 		return
 	}
 
-	if events == nil {
-		ctx.JSON(http.StatusNoContent, gin.H{})
-		return
-	}
-
 	ctx.JSON(http.StatusOK, events)
 }

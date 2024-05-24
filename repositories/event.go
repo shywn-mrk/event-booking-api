@@ -42,6 +42,7 @@ func (r *eventRepository) Delete(id int) error {
 }
 
 func (r *eventRepository) List() ([]models.Event, error) {
-	// Get all events from the database
-	return nil, nil
+	var events []models.Event
+	err := r.db.Find(&events).Error
+	return events, err
 }
