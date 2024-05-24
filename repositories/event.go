@@ -7,7 +7,7 @@ import (
 
 type EventRepository interface {
   Create(event models.Event) error
-  Read(id int) (*models.Event, error)
+  Read(id int64) (*models.Event, error)
   Update(id int) error
   Delete(id int) error
   List() ([]models.Event, error)
@@ -26,7 +26,7 @@ func (r *eventRepository) Create(event models.Event) error {
 	return nil
 }
 
-func (r *eventRepository) Read(id int) (*models.Event, error) {
+func (r *eventRepository) Read(id int64) (*models.Event, error) {
 	// Get an event by ID from the database
 	return nil, nil
 }
