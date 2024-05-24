@@ -28,7 +28,7 @@ func NewDatabase(cfg config.Config) (*gorm.DB, error) {
 }
 
 func NewRouter(lc fx.Lifecycle, eventHandler *handlers.EventHandler) *gin.Engine {
-	router := routes.SetupRouter(eventHandler)
+	router := routes.SetupEventsRouter(eventHandler)
 
 	lc.Append(fx.Hook{
 		OnStart: func(context.Context) error {
@@ -53,5 +53,6 @@ func main() {
 			handlers.NewEventHandler,
 			NewRouter,
 		),
+		fx.Invoke(func (router *gin.Engine) {}),
 	).Run()
 }

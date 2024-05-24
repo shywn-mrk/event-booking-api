@@ -5,7 +5,7 @@ import (
 	"github.com/shywn-mrk/event-book-api/handlers"
 )
 
-func SetupRouter(eventHandler *handlers.EventHandler) *gin.Engine {
+func SetupEventsRouter(eventHandler *handlers.EventHandler) *gin.Engine {
 	r := gin.Default()
 
 	r.POST("/events", eventHandler.Create)
