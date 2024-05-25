@@ -52,11 +52,35 @@ func (h *EventHandler) Read(ctx *gin.Context) {
 }
 
 func (h *EventHandler) Update(ctx *gin.Context) {
+	id, err := strconv.Atoi(ctx.Param("id"))
 
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID"})
+		return
+	}
+
+	if err := h.service.Update(id); err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{})
 }
 
 func (h *EventHandler) Delete(ctx *gin.Context) {
+	id, err := strconv.Atoi(ctx.Param("id"))
 
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID"})
+		return
+	}
+
+	if err := h.service.Delete(id); err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	ctx.JSON(http.StatusNoContent, gin.H{})
 }
 
 func (h *EventHandler) List(ctx *gin.Context) {
