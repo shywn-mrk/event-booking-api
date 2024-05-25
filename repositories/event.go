@@ -3,16 +3,16 @@ package repositories
 import (
 	"fmt"
 
-	"github.com/shywn-mrk/event-book-api/models"
+	"github.com/shywn-mrk/event-booking-api/models"
 	"gorm.io/gorm"
 )
 
 type EventRepository interface {
-  Create(event models.Event) error
-  Read(id int64) (*models.Event, error)
-  Update(id int) error
-  Delete(id int) error
-  List() ([]models.Event, error)
+	Create(event models.Event) error
+	Read(id int64) (*models.Event, error)
+	Update(id int) error
+	Delete(id int) error
+	List() ([]models.Event, error)
 }
 
 type eventRepository struct {

@@ -30,7 +30,7 @@ help:
 build:
 	@echo "building ${BIN_NAME} ${VERSION}"
 	@echo "GOPATH=${GOPATH}"
-	go build -ldflags "-X github.com/shywn-mrk/event-book-api/version.GitCommit=${GIT_COMMIT}${GIT_DIRTY} -X github.com/shywn-mrk/event-book-api/version.BuildDate=${BUILD_DATE}" -o bin/${BIN_NAME}
+	go build -ldflags "-X github.com/shywn-mrk/event-booking-api/version.GitCommit=${GIT_COMMIT}${GIT_DIRTY} -X github.com/shywn-mrk/event-booking-api/version.BuildDate=${BUILD_DATE}" -o bin/${BIN_NAME}
 
 get-deps:
 	dep ensure
@@ -38,7 +38,7 @@ get-deps:
 build-alpine:
 	@echo "building ${BIN_NAME} ${VERSION}"
 	@echo "GOPATH=${GOPATH}"
-	go build -ldflags '-w -linkmode external -extldflags "-static" -X github.com/shywn-mrk/event-book-api/version.GitCommit=${GIT_COMMIT}${GIT_DIRTY} -X github.com/shywn-mrk/event-book-api/version.BuildDate=${BUILD_DATE}' -o bin/${BIN_NAME}
+	go build -ldflags '-w -linkmode external -extldflags "-static" -X github.com/shywn-mrk/event-booking-api/version.GitCommit=${GIT_COMMIT}${GIT_DIRTY} -X github.com/shywn-mrk/event-booking-api/version.BuildDate=${BUILD_DATE}' -o bin/${BIN_NAME}
 
 package:
 	@echo "building image ${BIN_NAME} ${VERSION} $(GIT_COMMIT)"

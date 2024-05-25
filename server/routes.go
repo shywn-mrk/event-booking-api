@@ -2,7 +2,7 @@ package server
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/shywn-mrk/event-book-api/handlers"
+	"github.com/shywn-mrk/event-booking-api/handlers"
 )
 
 func SetupEngine(eventHandler *handlers.EventHandler) *gin.Engine {

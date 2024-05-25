@@ -1,4 +1,4 @@
-module github.com/shywn-mrk/event-book-api
+module github.com/shywn-mrk/event-booking-api
 
 go 1.22.2
 

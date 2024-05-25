@@ -5,8 +5,8 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/shywn-mrk/event-book-api/models"
-	"github.com/shywn-mrk/event-book-api/services"
+	"github.com/shywn-mrk/event-booking-api/models"
+	"github.com/shywn-mrk/event-booking-api/services"
 )
 
 type EventHandler struct {

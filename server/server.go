@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/gin-gonic/gin"
-	"github.com/shywn-mrk/event-book-api/handlers"
+	"github.com/shywn-mrk/event-booking-api/handlers"
 	"go.uber.org/fx"
 )
 

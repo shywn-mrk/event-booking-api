@@ -1,8 +1,8 @@
 package services
 
 import (
-	"github.com/shywn-mrk/event-book-api/models"
-	"github.com/shywn-mrk/event-book-api/repositories"
+	"github.com/shywn-mrk/event-booking-api/models"
+	"github.com/shywn-mrk/event-booking-api/repositories"
 )
 
 type EventService interface {

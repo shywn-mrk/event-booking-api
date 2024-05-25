@@ -3,8 +3,8 @@ package db
 import (
 	"fmt"
 
-	"github.com/shywn-mrk/event-book-api/config"
-	"github.com/shywn-mrk/event-book-api/models"
+	"github.com/shywn-mrk/event-booking-api/config"
+	"github.com/shywn-mrk/event-booking-api/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
