@@ -8,10 +8,10 @@ import (
 )
 
 type EventRepository interface {
-	Create(event models.Event) error
+	Create(event *models.Event) error
 	Read(id int64) (*models.Event, error)
-	Update(id int) error
-	Delete(id int) error
+	Update(id int64, event *models.Event) error
+	Delete(id int64) error
 	List() ([]models.Event, error)
 }
 
@@ -23,13 +23,8 @@ func NewEventRepository(db *gorm.DB) EventRepository {
 	return &eventRepository{db}
 }
 
-func (r *eventRepository) Create(event models.Event) error {
-	err := r.db.Create(&event).Error
-	if err != nil {
-		return fmt.Errorf("could not create event: %w", err)
-	}
-
-	return nil
+func (r *eventRepository) Create(event *models.Event) error {
+	return r.db.Create(event).Error
 }
 
 func (r *eventRepository) Read(id int64) (*models.Event, error) {
@@ -42,18 +37,14 @@ func (r *eventRepository) Read(id int64) (*models.Event, error) {
 	return &event, nil
 }
 
-func (r *eventRepository) Update(id int) error {
-	// Update the event in the database
-	return nil
+func (r *eventRepository) Update(id int64, event *models.Event) error {
+	obj, _ := r.Read(id)
+
+	return r.db.Model(obj).Updates(event).Error
 }
 
-func (r *eventRepository) Delete(id int) error {
-	err := r.db.Delete(&models.Event{}, id).Error
-	if err != nil {
-		return fmt.Errorf("could not delete event: %w", err)
-	}
-
-	return nil
+func (r *eventRepository) Delete(id int64) error {
+	return r.db.Delete(&models.Event{}, id).Error
 }
 
 func (r *eventRepository) List() ([]models.Event, error) {

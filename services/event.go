@@ -6,10 +6,10 @@ import (
 )
 
 type EventService interface {
-	Create(event models.Event) error
+	Create(event *models.Event) error
 	Read(id int64) (*models.Event, error)
-	Update(id int) error
-	Delete(id int) error
+	Update(id int64, event *models.Event) error
+	Delete(id int64) error
 	List() ([]models.Event, error)
 }
 
@@ -21,7 +21,7 @@ func NewEventService(repo repositories.EventRepository) EventService {
 	return &eventService{repo}
 }
 
-func (s *eventService) Create(event models.Event) error {
+func (s *eventService) Create(event *models.Event) error {
 	return s.repo.Create(event)
 }
 
@@ -29,11 +29,11 @@ func (s *eventService) Read(id int64) (*models.Event, error) {
 	return s.repo.Read(id)
 }
 
-func (s *eventService) Update(id int) error {
-	return s.repo.Update(id)
+func (s *eventService) Update(id int64, event *models.Event) error {
+	return s.repo.Update(id, event)
 }
 
-func (s *eventService) Delete(id int) error {
+func (s *eventService) Delete(id int64) error {
 	return s.repo.Delete(id)
 }
 

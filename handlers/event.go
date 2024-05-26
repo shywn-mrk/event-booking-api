@@ -25,7 +25,7 @@ func (h *EventHandler) Create(ctx *gin.Context) {
 		return
 	}
 
-	if err := h.service.Create(event); err != nil {
+	if err := h.service.Create(&event); err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
@@ -35,7 +35,6 @@ func (h *EventHandler) Create(ctx *gin.Context) {
 
 func (h *EventHandler) Read(ctx *gin.Context) {
 	id, err := strconv.ParseInt(ctx.Param("id"), 10, 0)
-
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID"})
 		return
@@ -52,24 +51,28 @@ func (h *EventHandler) Read(ctx *gin.Context) {
 }
 
 func (h *EventHandler) Update(ctx *gin.Context) {
-	id, err := strconv.Atoi(ctx.Param("id"))
-
+	id, err := strconv.ParseInt(ctx.Param("id"), 10, 0)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID"})
 		return
 	}
 
-	if err := h.service.Update(id); err != nil {
+	var event models.Event
+	if err := ctx.ShouldBindJSON(&event); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	if err := h.service.Update(id, &event); err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
-	ctx.JSON(http.StatusOK, gin.H{})
+	ctx.JSON(http.StatusOK, event)
 }
 
 func (h *EventHandler) Delete(ctx *gin.Context) {
-	id, err := strconv.Atoi(ctx.Param("id"))
-
+	id, err := strconv.ParseInt(ctx.Param("id"), 10, 0)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID"})
 		return
