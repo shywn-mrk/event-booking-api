@@ -2,13 +2,15 @@ package models
 
 import (
 	"time"
+
+	"gorm.io/gorm"
 )
 
 type Event struct {
-	ID          int       `json:"id"`
-	Name        string    `json:"title"`
-	Description string    `json:"description"`
-	Location    string    `json:"location"`
-	DateTime    time.Time `json:"datetime"`
-	UserID      int       `json:"user_id"`
+	gorm.Model
+	Name        string    `gorm:"not null" json:"title" binding:"required"`
+	Description string    `gorm:"not null" json:"description" binding:"required"`
+	Location    string    `gorm:"not null" json:"location" binding:"required"`
+	DateTime    time.Time `gorm:"not null" json:"datetime" binding:"required"`
+	UserID      int       `gorm:"not null" json:"user_id" binding:"required"`
 }
