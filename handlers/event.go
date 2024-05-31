@@ -41,7 +41,6 @@ func (h *EventHandler) Read(ctx *gin.Context) {
 	}
 
 	event, err := h.service.Read(id)
-
 	if err != nil {
 		ctx.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
 		return
@@ -57,13 +56,19 @@ func (h *EventHandler) Update(ctx *gin.Context) {
 		return
 	}
 
-	var event models.Event
-	if err := ctx.ShouldBindJSON(&event); err != nil {
+	var newEvent models.Event
+	if err := ctx.ShouldBindJSON(&newEvent); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	if err := h.service.Update(id, &event); err != nil {
+	event, err := h.service.Read(id)
+	if err != nil {
+		ctx.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+		return
+	}
+
+	if err := h.service.Update(id, &newEvent); err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}

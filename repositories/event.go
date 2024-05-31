@@ -40,7 +40,13 @@ func (r *eventRepository) Read(id int64) (*models.Event, error) {
 func (r *eventRepository) Update(id int64, event *models.Event) error {
 	obj, _ := r.Read(id)
 
-	return r.db.Model(obj).Updates(event).Error
+	event.ID = obj.ID
+	err := r.db.Model(obj).Updates(event).Error
+	if err != nil {
+		return fmt.Errorf("could not update event: %w", err)
+	}
+
+	return nil
 }
 
 func (r *eventRepository) Delete(id int64) error {
